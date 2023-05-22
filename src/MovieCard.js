@@ -16,25 +16,29 @@ class MovieCart extends React.Component {
         return;
     }
     // TYPE : 1
-    // this.setState({
+    // this.setState({       // if use setstate two many times but value is increase only once due to batching concept(batch them together,and it manupulate only based on last setstate()).
     //     stars: this.state.stars + 0.5
     // });
 
     // TYPE : 2
-    this.setState((prevState) => {
+    this.setState((prevState) => {   // in this case: value changes as many times setstate call because it depend on prevState() but rerendering is only once.
         return {
             stars: prevState.stars + 0.5
         }
+    },()=>{
+        console.log("Stars:",this.state.stars);
     });
   }
   decreaseStar=() =>{
     if(this.state.stars <= 0){
         return;
     }
-    this.setState((prevState) =>{
+    this.setState((prevState) =>{   
         return {
             stars : prevState.stars - 0.5
         }
+    },()=>{
+        console.log("Stars:",this.state.stars);    // use callback because it is asynchronous.
     });
   }
   render() {

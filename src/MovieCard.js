@@ -46,7 +46,7 @@ class MovieCart extends React.Component {
 //     });
 //   };
   render() {
-    const { title, plot, price, rating, stars, fav, isInCart, addHandler } =
+    const { title, plot, price, rating, stars, fav, isInCart } =
       this.props.movies;
     const {movies,addToCart,decreaseStar,increaseStar,favourite} = this.props;
     return (

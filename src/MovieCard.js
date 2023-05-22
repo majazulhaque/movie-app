@@ -8,7 +8,8 @@ class MovieCart extends React.Component {
       plot: "Supernatural powers shown in this movie",
       price: 199,
       rating: 8.9,
-      stars: 0
+      stars: 0,
+      fav: true
     };
   }
   increaseStar=() => {
@@ -41,8 +42,13 @@ class MovieCart extends React.Component {
         console.log("Stars:",this.state.stars);    // use callback because it is asynchronous.
     });
   }
+  favourite = () =>{
+    this.setState({
+        fav: !this.state.fav
+    });
+  }
   render() {
-    const { title, plot, price, rating,stars } = this.state;
+    const { title, plot, price, rating,stars,fav } = this.state;
     return (
       <>
         <div className="main">
@@ -80,7 +86,10 @@ class MovieCart extends React.Component {
                   />
                   <span>{stars}</span>
                 </div>
-                <button className="favourite-btn">Favourite</button>
+                {/* {fav?<button onClick={this.favourite} className="unfavourite-btn">Unfavourite</button>:
+                <button onClick={this.favourite} className="favourite-btn">Favourite</button>
+                } */}
+                <button className={fav?"unfavourite-btn":"favourite-btn"} onClick={this.favourite}>{fav?"Unfavorite":"Favourite"}</button>
                 <button className="cart-btn">Add to cart</button>
               </div>
             </div>

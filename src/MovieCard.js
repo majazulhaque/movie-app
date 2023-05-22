@@ -1,54 +1,54 @@
 import React from "react";
 
 class MovieCart extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      title: "The Avengers",
-      plot: "Supernatural powers shown in this movie",
-      price: 199,
-      rating: 8.9,
-      stars: 0,
-      fav: true
-    };
-  }
-  increaseStar=() => {
-    if(this.state.stars >= 5){
-        return;
-    }
-    // TYPE : 1
-    // this.setState({       // if use setstate two many times but value is increase only once due to batching concept(batch them together,and it manupulate only based on last setstate()).
-    //     stars: this.state.stars + 0.5
-    // });
+  // increaseStar = (index) => {
+  //     if (this.state.movies.stars >= 5) {
+  //       return;
+  //     }
+  //     // TYPE : 1
+  //     // this.setState({       // if use setstate two many times but value is increase only once due to batching concept(batch them together,and it manupulate only based on last setstate()).
+  //     //     stars: this.state.stars + 0.5
+  //     // });
 
-    // TYPE : 2
-    this.setState((prevState) => {   // in this case: value changes as many times setstate call because it depend on prevState() but rerendering is only once.
-        return {
-            stars: prevState.stars + 0.5
-        }
-    },()=>{
-        console.log("Stars:",this.state.stars);
-    });
-  }
-  decreaseStar=() =>{
-    if(this.state.stars <= 0){
-        return;
-    }
-    this.setState((prevState) =>{   
-        return {
-            stars : prevState.stars - 0.5
-        }
-    },()=>{
-        console.log("Stars:",this.state.stars);    // use callback because it is asynchronous.
-    });
-  }
-  favourite = () =>{
-    this.setState({
-        fav: !this.state.fav
-    });
-  }
+  //     // TYPE : 2
+  //     this.setState(
+  //       (prevState) => {
+  //         // in this case: value changes as many times setstate call because it depend on prevState() but rerendering is only once.
+  //         return {
+  //           stars: prevState.movies.stars + 0.5,
+  //         };
+  //       },
+  //       () => {
+  //         console.log("Stars:", this.state.movies.stars);
+  //       }
+  //     );
+  //   };
+  //   decreaseStar=() =>{
+  //     if(this.state.stars <= 0){
+  //         return;
+  //     }
+  //     this.setState((prevState) =>{
+  //         return {
+  //             stars : prevState.stars - 0.5
+  //         }
+  //     },()=>{
+  //         console.log("Stars:",this.state.stars);    // use callback because it is asynchronous.
+  //     });
+  //   }
+  //   favourite = () =>{
+  //     this.setState({
+  //         fav: !this.state.fav
+  //     });
+  //   }
+//   handleAddToCart = () => {
+//     this.setState({
+//       isInCart: !this.state.isInCart,
+//     });
+//   };
   render() {
-    const { title, plot, price, rating,stars,fav } = this.state;
+    const { title, plot, price, rating, stars, fav, isInCart, addHandler } =
+      this.props.movies;
+    const {movies,addToCart,decreaseStar,increaseStar,favourite} = this.props;
     return (
       <>
         <div className="main">
@@ -71,7 +71,9 @@ class MovieCart extends React.Component {
                     className="str-btn"
                     src="https://cdn-icons-png.flaticon.com/128/43/43625.png"
                     alt="decrease"
-                    onClick={this.decreaseStar}
+                    onClick={() => {
+                        decreaseStar(movies);
+                    }}
                   />
                   <img
                     className="stars"
@@ -82,15 +84,24 @@ class MovieCart extends React.Component {
                     className="str-btn"
                     src="https://cdn-icons-png.flaticon.com/128/1828/1828925.png"
                     alt="increase"
-                    onClick={this.increaseStar}
+                    onClick={() => {
+                      increaseStar(movies);
+                    }}
                   />
                   <span>{stars}</span>
                 </div>
                 {/* {fav?<button onClick={this.favourite} className="unfavourite-btn">Unfavourite</button>:
                 <button onClick={this.favourite} className="favourite-btn">Favourite</button>
                 } */}
-                <button className={fav?"unfavourite-btn":"favourite-btn"} onClick={this.favourite}>{fav?"Unfavorite":"Favourite"}</button>
-                <button className="cart-btn">Add to cart</button>
+                <button
+                  className={fav ? "unfavourite-btn" : "favourite-btn"}
+                  onClick={() =>{favourite(movies)}}
+                >
+                  {fav ? "Unfavorite" : "Favourite"}
+                </button>
+                <button onClick={() =>{addToCart(movies)}} className="cart-btn">
+                  {isInCart ? "Remove from cart" : "Add to cart"}
+                </button>
               </div>
             </div>
           </div>

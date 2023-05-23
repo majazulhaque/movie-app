@@ -32,6 +32,7 @@ font-size: 12px;
 
 class Navbar extends React.Component {
   render() {
+    let {cartCount} = this.props;
     return (
       <>
         <Nav>
@@ -42,7 +43,7 @@ class Navbar extends React.Component {
               src="https://cdn-icons-png.flaticon.com/128/3144/3144456.png"
               alt="cart-icon"
             />
-            <CartCount color="yellow">0</CartCount>
+            <CartCount color="yellow">{cartCount}</CartCount>
           </div>
         </Nav>
       </>

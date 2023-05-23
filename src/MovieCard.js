@@ -1,6 +1,6 @@
 import React from "react";
 
-class MovieCart extends React.Component {
+function MovieCart(props) {
   // increaseStar = (index) => {
   //     if (this.state.movies.stars >= 5) {
   //       return;
@@ -45,10 +45,9 @@ class MovieCart extends React.Component {
 //       isInCart: !this.state.isInCart,
 //     });
 //   };
-  render() {
     const { title, plot, price, rating, stars, fav, isInCart } =
-      this.props.movies;
-    const {movies,addToCart,decreaseStar,increaseStar,favourite} = this.props;
+      props.movies;
+    const {movies,addToCart,decreaseStar,increaseStar,favourite} = props;
     return (
       <>
         <div className="main">
@@ -108,7 +107,6 @@ class MovieCart extends React.Component {
         </div>
       </>
     );
-  }
 }
 
 export default MovieCart;

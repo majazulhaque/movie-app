@@ -2,13 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 const Nav = styled.div`
+    width:100%;
     height:70px;
     background:linear-gradient(170deg,#1bc059, #0d47a1);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
-    position:relative;
+    position:fixed;
+    top:0;
+    overflow:hidden;
+    z-index:9999;
+    
 `;
 
 const Title = styled.div`
@@ -30,9 +35,8 @@ top: -5px;
 font-size: 12px;
 `
 
-class Navbar extends React.Component {
-  render() {
-    let {cartCount} = this.props;
+function Navbar(props) {
+    let {cartCount} = props;
     return (
       <>
         <Nav>
@@ -48,7 +52,6 @@ class Navbar extends React.Component {
         </Nav>
       </>
     );
-  }
 }
 
 const styles = {
